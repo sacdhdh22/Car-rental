@@ -1,3 +1,12 @@
+Tables
+1: car_details
+2: car_pricing
+3: user
+4: booking
+
+Have added the schema structure for the following tables. 
+
+
 CREATE TABLE `car_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `active` tinyint(4) NOT NULL DEFAULT '1',
@@ -41,3 +50,21 @@ CREATE TABLE `user` (
   KEY `active_idx` (`active`),
   KEY `mobile_idx` (`mobile`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `booking` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
+  `toDate` datetime NOT NULL,
+  `fromDate` datetime NOT NULL,
+  `fk_id_car_details` int(11) DEFAULT NULL,
+  `fk_id_user` int(11) DEFAULT NULL,
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_id_car_details_foreign` (`fk_id_car_details`),
+  KEY `fk_id_user_foreign_key` (`fk_id_user`),
+  KEY `active_idx` (`active`),
+  CONSTRAINT `fk_id_car_details_foreign` FOREIGN KEY (`fk_id_car_details`) REFERENCES `car_details` (`id`),
+  CONSTRAINT `fk_id_user_foreign_key` FOREIGN KEY (`fk_id_user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
